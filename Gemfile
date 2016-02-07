@@ -29,6 +29,7 @@ gem 'sprockets-rails', '>= 2.3.2'
 gem 'autoprefixer-rails'
 
 gem 'high_voltage'
+gem 'paperclip'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

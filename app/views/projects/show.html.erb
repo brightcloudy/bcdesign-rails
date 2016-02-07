@@ -1,0 +1,15 @@
+<% provide(:title, @project.title) %>
+<h2>
+  <%= @project.title %>
+  <% if @project.status.eql?("Complete") %>
+    <span class="label label-success">Complete</span>
+  <% end %>
+  <% if @project.status.eql?("In Progress") %>
+    <span class="label label-warning">In Progress</span>
+  <% end %>
+  <% if @project.status.eql?("Paused") %>
+    <span class="label label-default">Paused</span>
+  <% end %>
+</h2><br>
+<%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded") %><br>
+<p class="text-muted"><%= @project.description %></p>

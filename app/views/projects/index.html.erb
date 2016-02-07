@@ -1,0 +1,19 @@
+<% provide(:title, 'Projects') %>
+<div class="row">
+  <% @projects.each do |project| %>
+    <div class="col-md-3 padded">
+      <h5><%= link_to project.title, "/projects/#{project.id}" %></h5>
+      <% if project.status.eql?("Complete") %>
+        <span class="label label-success">Complete</span>
+      <% end %>
+      <% if project.status.eql?("In Progress") %>
+        <span class="label label-warning">In Progress</span>
+      <% end %>
+      <% if project.status.eql?("Paused") %>
+        <span class="label label-default">Paused</span>
+      <% end %>
+      <br>
+      <%= image_tag(project.image.url(:thumb), class: "img-responsive img-rounded") %>
+    </div>
+  <% end %>
+</div>
