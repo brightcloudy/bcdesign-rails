@@ -31,6 +31,10 @@ gem 'autoprefixer-rails'
 gem 'high_voltage'
 gem 'paperclip'
 
+gem 'rotp'
+gem 'rqrcode'
+gem 'devise'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

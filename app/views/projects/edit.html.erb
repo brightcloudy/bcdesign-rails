@@ -1,0 +1,36 @@
+<% provide(:title, 'Edit Project') %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h2 class="text-center">Editing Project <%= @project.id %></h2>
+    <%= form_for :projects, url: "/projects/#{@project.id}", :method => :patch, html: { multipart: true } do |f| %>
+      <div class="form-group">
+        <%= f.label :title, "Project Title:" %>
+        <%= f.text_field :title, value: @project.title, class: "form-control", placeholder: "Title" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description, "Description:" %>
+        <%= f.text_area :description, value: @project.description, class: "form-control", rows: "3", placeholder: "Descriptive text block" %>
+      </div>
+      <div class="form-group">
+        <%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded img-center") %><br>
+        <%= f.label :image, "Photo: " %>
+        <%= f.file_field :image %>
+      </div>
+      <div class="form-group">
+        <%= f.label :status, "Project Status:" %>
+        <div class="radio">
+          <%= f.radio_button :status, "Complete", :checked => @project.status.eql?("Complete") %>Complete<br>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :status, "In Progress", :checked => @project.status.eql?("In Progress") %>In Progress<br>
+        </div>
+        <div class="radio"> 
+          <%= f.radio_button :status, "Paused", :checked => @project.status.eql?("Paused") %>Paused<br>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Edit Project", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

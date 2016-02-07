@@ -1,15 +1,27 @@
 <% provide(:title, @project.title) %>
-<h2>
-  <%= @project.title %>
-  <% if @project.status.eql?("Complete") %>
-    <span class="label label-success">Complete</span>
+<div class="col-md-8 col-md-offset-2" style="text-align: center">
+  <h2>
+    <%= @project.title %>
+  </h2>
+  <h3>
+    <% if @project.status.eql?("Complete") %>
+      <span class="label label-success">Complete</span>
+    <% end %>
+    <% if @project.status.eql?("In Progress") %>
+      <span class="label label-warning">In Progress</span>
+    <% end %>
+    <% if @project.status.eql?("Paused") %>
+      <span class="label label-default">Paused</span>
+    <% end %>
+  </h3><br>
+  <%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded img-center") %><br>
+  <p class="text-muted"><%= @project.description %></p>
+  <% if admin_signed_in? %>
+    <p>
+      <%= link_to "Edit", "/projects/#{@project.id}/edit", class: "btn btn-primary" %>
+    </p>
+    <p>
+      <%= link_to "Delete", "/projects/#{@project.id}", :method => :delete, data: { confirm: "Are you sure you want to delete this project?" }, class: "btn btn-danger" %>
+    </p>
   <% end %>
-  <% if @project.status.eql?("In Progress") %>
-    <span class="label label-warning">In Progress</span>
-  <% end %>
-  <% if @project.status.eql?("Paused") %>
-    <span class="label label-default">Paused</span>
-  <% end %>
-</h2><br>
-<%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded") %><br>
-<p class="text-muted"><%= @project.description %></p>
+</div>

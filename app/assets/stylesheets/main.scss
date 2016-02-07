@@ -1,2 +1,14 @@
 @import "bootstrap.min";
 @import "projects";
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+.img-rounded.img-center {
+  margin: 0 auto;
+}
+body {
+  padding-bottom: 70px;
+}
