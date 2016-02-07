@@ -34,4 +34,17 @@ module ApplicationHelper
   def is_superadmin?(user)
     user.superadmin
   end
+
+  def unapproved_count
+    return Admin.all.select { |x| x.approved == false }.count
+  end
+
+  def badge_string(count)
+    if count == 0
+      return ''
+    else
+      return count.to_s
+    end
+  end
+
 end
