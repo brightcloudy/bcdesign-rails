@@ -14,7 +14,7 @@
       <tr>
         <td><%= admin.id %></td>
         <td><%= link_to admin.email, "/admin/#{admin.id}" %></td>
-        <td><%= admin.gauth_enabled %></td>
+        <td><%= "true" if admin.gauth_enabled == "t"%><%= "false" if admin.gauth_enabled == "f" %></td>
         <% if admin.approved %>
           <td>true</td>
         <% else %>

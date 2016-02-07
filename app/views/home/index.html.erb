@@ -6,6 +6,9 @@
         <% @featured_projects.each_with_index do |proj, idx| %>
           <li data-target="#carousel-generic" data-slide-to="<%= idx %>" class="<%= 'active' if idx == 0 %>"></li>
         <% end %>
+        <% if @featured_projects.empty? %>
+          <li data-target="#carousel-generic" data-slide-to="0" class="active"></li>
+        <% end %>
       </ol>
       <div class="carousel-inner" role="listbox">
         <% @featured_projects.each_with_index do |proj, idx| %>
@@ -20,6 +23,14 @@
                   <p class="text-muted"><%= proj.description %></p>
                 </div>
               </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @featured_projects.empty? %>
+          <div class="item active">
+            <%= image_tag("empty.png") %>
+            <div class="carousel-caption">
+              <h3 class="text-center">No featured projects</h3>
             </div>
           </div>
         <% end %>
