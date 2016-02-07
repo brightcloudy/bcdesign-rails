@@ -17,4 +17,5 @@
 //= require transition
 //= require collapse
 //= require turbolinks
+//= require analytics
 //= require_tree .
