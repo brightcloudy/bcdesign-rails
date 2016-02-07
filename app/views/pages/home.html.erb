@@ -1,0 +1,17 @@
+<% provide(:title, 'Home') %>
+<% provide(:jumbotron, '
+  <h1>Bright Cloud Design</h1>
+  '.html_safe)%>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Website Under Construction</h2>
+      <p>Please bear with us while we do this. Thanks!</p>
+    </div>
+    <div class="col-md-6">
+      <h2>Contact Information</h2>
+      <p>Questions? Comments? Want more information about something?</p>
+      <%= link_to "Contact Us", contact_path, class: "btn btn-primary", role: "button" %>
+    </div>
+  </div>
+</div>
