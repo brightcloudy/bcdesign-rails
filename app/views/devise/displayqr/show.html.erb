@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4" style="text-align: center">
+    <h2><%= I18n.t('title', {:scope => 'devise.registration'}) %></h2>
+    
+    <%= raw google_authenticator_qrcode(resource).sub(/source/, 'class="img-responsive img-center" source') %>
+    
+    <%= form_for(resource, :as => resource_name, :url => [:refresh, resource_name, :displayqr], :html => {:method => :post}) do |f|%>
+    	<p><%= f.submit I18n.t('newtoken', {:scope => 'devise.registration'}), class: "btn btn-default" %></p>
+    <% end %>
+    
+    <%= form_for(resource, :as => resource_name, :url => [resource_name, :displayqr], :html => { :method => :put }) do |f| %>
+    	<%= devise_error_messages! %>
+    	<h3><%= I18n.t('nice_request', {:scope => 'devise.registration'}) %></h3>
+    	<p><%= f.label :gauth_enabled, I18n.t('qrstatus', {:scope => 'devise.registration'}), class: "control-label" %><br />
+    	<%= f.check_box :gauth_enabled, class: "form-control" %></p>
+    	<%= f.hidden_field :tmpid, value: @tmpid %>
+    	<p><%= f.label :gauth_token, I18n.t('enter_token', {:scope => 'devise.registration'}), class: "control-label" %><br />
+    	<%= f.number_field :gauth_token, :autocomplete => :off, class: "form-control" %>
+    
+    	<p><%= f.submit I18n.t('submit', {:scope => 'devise.registration'}), class: "btn btn-primary" %></p>
+    <% end %>
+  </div>
+</div>

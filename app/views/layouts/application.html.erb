@@ -3,6 +3,9 @@
 <head>
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <% if current_page?('/google_authenticate/new') %>
+    <%= stylesheet_link_tag 'google_authenticate', media: 'all', 'data-turbolinks-track' => true %>
+  <% end %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -24,6 +27,7 @@
             <ul class="dropdown-menu">
               <li><%= link_to "New Project", '/projects/new' %></li>
               <li role="separator" class="divider"></li>
+              <li><%= link_to "Manage 2FA", '/admins/displayqr' %></li>
               <li><%= link_to "Edit Account", '/admins/edit' %></li>
             </ul>
           </li>
@@ -47,6 +51,12 @@
     <div class="alert alert-warning alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <%= flash[:alert] %>
+    </div>
+  <% end %>
+  <% if flash[:error] %>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= flash[:error] %>
     </div>
   <% end %>
   <% if current_page?(root_path) %>

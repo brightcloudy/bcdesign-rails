@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4" style="text-align: center">
+    <h2><%= I18n.t('submit_token_title', {:scope => 'devise'}) %></h2>
+    
+    <%= form_for(resource, :as => resource_name, :url => [resource_name, :checkga], :html => { :method => :put }) do |f| %>
+    	<%= f.hidden_field :tmpid, {:value => @tmpid} %>
+    	<%= f.text_field :gauth_token, :autocomplete => :off, class: "form-control" %>
+      <br>
+    	<p><%= f.submit I18n.t('submit_token', {:scope => 'devise'}), class: "btn btn-primary" %></p>
+    <% end %>
+  </div>
+</div>

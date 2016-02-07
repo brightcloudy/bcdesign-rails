@@ -18,4 +18,16 @@ module ApplicationHelper
       "#{page_title} | #{site_name}"
     end
   end
+
+  def form_error(errors, member)
+    if errors.messages.has_key?(member)
+      return "form-group has-error"
+    else
+      if errors.count > 0
+        return "form-group has-success"
+      else
+        return "form-group"
+      end
+    end
+  end
 end

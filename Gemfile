@@ -34,6 +34,7 @@ gem 'paperclip'
 gem 'rotp'
 gem 'rqrcode'
 gem 'devise'
+gem 'devise_google_authenticator'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

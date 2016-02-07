@@ -2,15 +2,17 @@ class ProjectsController < ApplicationController
   before_action :authenticate_admin!, only: [:create, :new, :destroy, :edit, :update]
 
   def new
+    @project = Project.new
   end
 
   def create
     @project = Project.new(params.require(:projects).permit(:title, :description, :image, :status))
-    @project.save
-
-    flash[:success] = "Project created successfully!"
-  
-    redirect_to @project
+    if @project.save
+      flash[:success] = "Project created successfully!"
+      redirect_to @project
+    else
+      render 'new'
+    end
   end
 
   def show

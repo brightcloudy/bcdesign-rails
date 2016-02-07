@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: { sessions: "admins/sessions", registrations: "admins/registrations", passwords: "admins/passwords" }
   get '/home', to: redirect('/')
   get '/contact' => 'high_voltage/pages#show', id: 'contact'
-
+  
   resources :projects
-  resources :google_authenticate  
 
   root :to => 'high_voltage/pages#show', id: 'home'
 end

@@ -1,2 +1,0 @@
-class GoogleAuthenticateController < ApplicationController
-end
