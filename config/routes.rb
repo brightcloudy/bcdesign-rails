@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get '/home', to: redirect('/')
   get '/contact' => 'high_voltage/pages#show', id: 'contact'
 
+  resources :projects
+
   root :to => 'high_voltage/pages#show', id: 'home'
 end
 #Rails.application.routes.draw do
