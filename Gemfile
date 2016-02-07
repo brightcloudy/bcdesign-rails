@@ -31,6 +31,7 @@ gem 'autoprefixer-rails'
 gem 'high_voltage'
 gem 'paperclip'
 
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'rotp'
 gem 'rqrcode'
 gem 'devise'

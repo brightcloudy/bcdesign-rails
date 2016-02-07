@@ -19,4 +19,4 @@
 /public/uploads
 /public/system
 Gemfile.lock
-/app/assets/javascripts/analytics.js
+.env.production

@@ -12,10 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require tether
 //= require bootstrap.min
 //= require bootstrap-sprockets
 //= require transition
 //= require collapse
+//= require carousel
 //= require turbolinks
 //= require analytics
 //= require_tree .

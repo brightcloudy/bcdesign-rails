@@ -1,35 +1,21 @@
-app_path = File.expand_path(File.dirname(__FILE__) + '/..')
+# set path to application
+app_dir = File.expand_path("../..", __FILE__)
+shared_dir = "#{app_dir}/shared"
+working_directory app_dir
 
-worker_processes (ENV['RAILS_ENV'] == 'production' ? 4 : 1)
 
-#You can listen on a port or a socket. Listening on a socket is good in a
-# production environment, but listening on a port can be useful for local
-# debugging purposes.
-listen app_path + '/tmp/unicorn.sock', backlog: 64
-
-# For development, you may want to listen on port 3000 so that you can make sure
-# your unicorn.rb file is soundly configured.
-listen(3000, backlog: 64) if ENV['RAILS_ENV'] == 'development'
-
-timeout 300
-
-working_directory app_path
-
-pid app_path + '/tmp/unicorn.pid'
-
-stderr_path app_path + '/log/unicorn.log'
-stdout_path app_path + '/log/unicorn.log'
+# Set unicorn options
+worker_processes 2
 preload_app true
+timeout 30
 
-GC.respond_to?(:copy_on_write_friendly=) &&
-  GC.copy_on_write_friendly = true
+# Set up socket location
+listen "#{shared_dir}/sockets/unicorn.sock", :backlog => 64
 
-before_fork do |server, worker|
-  defined?(ActiveRecord::Base) &&
-    ActiveRecord::Base.connection.disconnect!
-end
+# Logging
+stderr_path "#{shared_dir}/log/unicorn.stderr.log"
+stdout_path "#{shared_dir}/log/unicorn.stdout.log"
 
-after_fork do |server, worker|
-  defined?(ActiveRecord::Base) &&
-    ActiveRecord::Base.establish_connection
-end
+# Set master PID location
+pid "#{shared_dir}/pids/unicorn.pid"
+
