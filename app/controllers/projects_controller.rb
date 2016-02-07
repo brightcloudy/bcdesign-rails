@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(params.require(:projects).permit(:title, :description, :image, :status))
+    @project = Project.new(params.require(:projects).permit(:title, :description, :image, :status, :featured_status))
     if @project.save
       flash[:success] = "Project created successfully!"
       redirect_to @project
@@ -53,6 +53,6 @@ class ProjectsController < ApplicationController
 
   private
     def projects_params
-      params.require(:projects).permit(:title, :description, :status, :image)
+      params.require(:projects).permit(:title, :description, :status, :image, :featured_status)
     end
 end

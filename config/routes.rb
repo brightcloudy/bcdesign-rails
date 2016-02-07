@@ -4,8 +4,14 @@ Rails.application.routes.draw do
   get '/contact' => 'high_voltage/pages#show', id: 'contact'
   
   resources :projects
+  resources :admin do
+    member do
+      post 'approve'
+    end
+  end
+  resources :home
 
-  root :to => 'high_voltage/pages#show', id: 'home'
+  root :to => 'home#index'
 end
 #Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.

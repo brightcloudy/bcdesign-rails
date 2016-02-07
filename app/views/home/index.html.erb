@@ -1,0 +1,38 @@
+<% provide(:title, 'Home') %>
+<% provide(:jumbotron, '
+  <h2>Bright Cloud Design</h2>
+  '.html_safe)%>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="text-muted">Featured Project <%= "- ".concat(@featured_project.title) if !(@featured_project.nil?) %></h3>
+    </div>
+      <% if @featured_project.nil? %>
+        <div class="panel-body"><p>No currently featured project!</p></div>
+      <% else %>
+        <div class="panel-body">
+          <div class="thumbnail">
+            <%= image_tag(@featured_project.image.url(:featured_thumb), class: "img-responsive img-rounded img-center") %>
+          </div>
+          <div class="caption">
+            <p class="text-muted"><%= @featured_project.description %>&nbsp;&nbsp;
+            <%= link_to "More Info", "/projects/#{@featured_project.id}", class: "btn btn-primary pull-right", role: "button" %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2 class="text-muted">Contact Information</h2>
+      </div>
+      <div class="panel-body">
+        <p>Questions? Comments? Want more information about something?</p>
+        <%= link_to "Contact Us", contact_path, class: "btn btn-primary", role: "button" %>
+      </div>
+    </div>
+  </div>
+</div>

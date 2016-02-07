@@ -30,4 +30,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def is_superadmin?(user)
+    user.superadmin
+  end
 end

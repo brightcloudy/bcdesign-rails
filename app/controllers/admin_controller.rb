@@ -1,10 +1,47 @@
 class AdminController < ApplicationController
-  before_action :authenticate_admin!, only: [:addqr]
+  before_action :authenticate_admin!, only: [:addqr, :new, :index]
 
   def new
   end 
 
   def token
+  end
+
+  def destroy
+    @admin = Admin.find(params[:id])
+    if !(current_admin.superadmin)
+      flash[:error] = "You are not authorized to perform this action!"
+      redirect_to '/'
+    end
+
+    @admin.destroy
+
+    flash[:success] = "Account destroyed successfully."
+
+    redirect_to '/admin'
+  end
+
+  def approve
+    @admin = Admin.find(params[:id])
+    if !(current_admin.superadmin)
+      flash[:error] = "You are not authorized to perform this action!"
+      redirect_to '/'
+    end
+    if @admin.update(approved: true)
+      flash[:success] = "Account #{@admin.email} approved successfully."
+      redirect_to '/admin'
+    else
+      flash[:error] = "Failed to approve account!"
+      redirect_to '/admin'
+    end
+  end
+
+  def index
+    @admins = Admin.all
+    if !(current_admin.superadmin)
+      flash[:error] = "You are not authorized to access this page."
+      redirect_to '/'
+    end
   end
 
   def addqr

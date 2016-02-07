@@ -17,6 +17,13 @@
   <%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded img-center") %><br>
   <p class="text-muted"><%= @project.description %></p>
   <% if admin_signed_in? %>
+    <% barwidth = @project.featured_status.to_i*10 %>
+    <h4 style="text-align: center">Feature Priority</h4>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="<%= @project.featured_status %>" aria-valuemin="0" aria-valuemax="10" style="min-width: 2em; width: <%= barwidth %>%">
+        <%= @project.featured_status %>
+      </div>
+    </div>
     <p>
       <%= link_to "Edit", "/projects/#{@project.id}/edit", class: "btn btn-primary" %>
     </p>
