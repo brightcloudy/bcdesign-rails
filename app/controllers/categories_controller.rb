@@ -9,10 +9,10 @@ class CategoriesController < ApplicationController
     @category = Category.new(params.require(:category).permit(:name, :description))
     if @category.save
       flash[:success] = "Category created successfully!"
-      redirect_to :root
+      redirect_to categories_path
     else
       flash[:error] = "Failed to create category."
-      redirect_to new_category
+      redirect_to :back
     end
   end
 

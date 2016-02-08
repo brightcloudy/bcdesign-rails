@@ -13,10 +13,10 @@ class CategorizationsController < ApplicationController
     @categorization = Categorization.new(params.require(:categorization).permit(:project_id, :category_id))
     if @categorization.save
       flash[:success] = "Categorization successfully added."
-      redirect_to new_project_categorization_path
+      redirect_to :back
     else
       flash[:error] = "Failed to add categorization!"
-      redirect_to new_project_categorization_path
+      redirect_to :back
     end
   end
 
@@ -24,6 +24,6 @@ class CategorizationsController < ApplicationController
     Categorization.find(params[:categorization][:id]).destroy
 
     flash[:success] = "Categorization successfully destroyed."
-    redirect_to project_path(params[:project_id])
+    redirect_to :back
   end
 end

@@ -33,18 +33,23 @@
           <%= @project.featured_status %>
         </div>
       </div>
-      <% cat_idmap = @project.categorizations.collect { |x| { 'id' => x.id, 'name' => Category.find(x.category_id).name } } %>
-      <% cat_ids = cat_idmap.collect { |x| x['id'] } %>
-      <p class="text-center">
-        <% new_cats = Category.all.reject { |x| cat_ids.include?(x.id) } %>
-        <%= form_for :categorization, url: "/projects/#{@project.id}/categorizations", :method => :post, html: { class: "form-inline" } do |f| %>
-          <div class="form-group">
-            <%= f.select :category_id, options_from_collection_for_select(new_cats, 'id', 'name'), class: "form-control" %>
-          </div>
-          <%= f.hidden_field :project_id, value: @project.id %>
-          <%= f.submit "Add Category", class: "btn btn-success" %>
-        <% end %>
-        </p>
+      <% if @categorization != nil %>
+        <% cat_ids = @project.categorizations.collect { |x| x.category_id } %>
+      <% else %>
+        <% cat_ids = Array.new %>
+      <% end %>
+      <% new_cats = Category.all.reject { |x| cat_ids.include?(x.id) } %>
+      <% if !new_cats.empty? %>
+        <p class="text-center">
+          <%= form_for :categorization, url: "/projects/#{@project.id}/categorizations", :method => :post, html: { class: "form-inline" } do |f| %>
+            <div class="form-group">
+              <%= f.select :category_id, options_from_collection_for_select(new_cats, 'id', 'name'), class: "form-control" %>
+            </div>
+            <%= f.hidden_field :project_id, value: @project.id %>
+            <%= f.submit "Add Category", class: "btn btn-success" %>
+          <% end %>
+          </p>
+      <% end %>
       <% if @categorization != nil %>
         <p class="text-center">
           <%= form_for [@project, @categorization], url: project_categorization_path(@project.id, @categorization.id), :method => :delete, html: { class: "form-inline" } do |f| %>
