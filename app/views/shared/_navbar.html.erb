@@ -1,0 +1,44 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to site_name, site_url, :class => "navbar-brand" %>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
+      <li class="<%= 'active' if current_page?(projects_path) %>"><%= link_to "Projects", projects_path %></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/categories">All Categories<span class="badge badge-important pull-right"><%= Project.all.count %></span></a></li>
+          <li role="separator" class="divider"></li>
+          <% Category.all.each do |cat| %>
+            <li><a href="/categories/<%= cat.id %>"><%= cat.name %><span class="badge badge-important pull-right"><%= Categorization.all.select { |x| x.category_id == cat.id }.count %></span></a></li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="<%= 'active' if current_page?(contact_path) %>"> <%= link_to "Contact", contact_path %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if admin_signed_in? %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% if is_superadmin?(current_admin) %>
+              <li><%= link_to "New Project", '/projects/new' %></li>
+              <li><%= link_to "New Category", '/categories/new' %></li>
+              <li><a href="/admin">Users <span class="badge badge-important pull-right"><%= badge_string(unapproved_count)  %></span></a></li>
+              <li role="separator" class="divider"></li>
+            <% end %>
+            <li><%= link_to "Manage 2FA", '/admins/displayqr' %></li>
+            <li><%= link_to "Edit Account", '/admins/edit' %></li>
+            <li><%= link_to "Logout", "/admins/sign_out", :method => :delete %></li>
+          </ul>
+        </li>
+      <% else %>
+        <li><%= link_to "Login", "/admins/sign_in" %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= link_to "Sign Up", "/admins/sign_up" %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

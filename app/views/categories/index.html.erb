@@ -1,17 +1,19 @@
 <% provide(:title, "View Users") %>
-<div class="container-fluid">
-  <table class="table table-striped">
-    <tr>
-      <td>Name</td>
-      <td>Description</td>
-      <td>Project Count</td>
-    </tr>
-    <% @categories.each do |cat| %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <table class="table table-striped">
       <tr>
-        <td><%= link_to cat.name, "/categories/#{cat.id}" %></td>
-        <td><%= cat.description %></td>
-        <td><%= Categorization.all.select { |x| x.category_id == cat.id }.count %></td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Project Count</td>
       </tr>
-    <% end %>
-  </table>
+      <% @categories.each do |cat| %>
+        <tr>
+          <td><%= link_to cat.name, "/categories/#{cat.id}" %></td>
+          <td><%= cat.description %></td>
+          <td><%= Categorization.all.select { |x| x.category_id == cat.id }.count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>
