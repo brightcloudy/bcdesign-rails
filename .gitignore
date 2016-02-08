@@ -19,4 +19,5 @@
 /public/uploads
 /public/system
 Gemfile.lock
+*.swp
 .env.production

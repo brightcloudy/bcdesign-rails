@@ -14,20 +14,29 @@
       <% if @project.status.eql?("Paused") %>
         <span class="label label-default">Paused</span>
       <% end %>
-    </h3><br>
+    </h3>
+    <br>
     <%= image_tag(@project.image.url(:medium), class: "img-responsive img-rounded img-center") %><br>
   </div>
   <div class="col-md-4">
-    <p class="text-muted"><%= @project.description %></p>
-    <ul class="list-inline">
-      <% @project.categorizations.each do |catg| %>
-        <% catgy = Category.find(catg.category_id) %>
-        <li><span class="label label-primary"><%= catgy.name %></span></li>
-      <% end %>
-    </ul><br>
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <p><%= @project.description %></p>
+      </div>
+      <div class="panel-footer">
+        <h4 class="text-muted">Categories:</h4>
+        <ul class="list-group">
+          <% @project.categorizations.each do |catg| %>
+            <% catgy = Category.find(catg.category_id) %>
+            <li class="list-group-item list-group-item-info"><%= catgy.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <br>
     <% if admin_signed_in? %>
       <% barwidth = @project.featured_status.to_i*10 %>
-      <h4 style="text-align: center">Feature Priority</h4>
+      <h4 style="text-align: center">Featured Status</h4>
       <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuenow="<%= @project.featured_status %>" aria-valuemin="0" aria-valuemax="10" style="min-width: 2em; width: <%= barwidth %>%">
           <%= @project.featured_status %>
@@ -48,7 +57,7 @@
             <%= f.hidden_field :project_id, value: @project.id %>
             <%= f.submit "Add Category", class: "btn btn-success" %>
           <% end %>
-          </p>
+        </p>
       <% end %>
       <% if @categorization != nil %>
         <p class="text-center">
@@ -58,7 +67,7 @@
             </div>
             <%= f.submit "Delete Category", class: "btn btn-danger" %>
           <% end %>
-          </p>
+        </p>
       <% end %>
       <p class="text-center">
         <%= link_to "Edit", "/projects/#{@project.id}/edit", class: "btn btn-primary" %>

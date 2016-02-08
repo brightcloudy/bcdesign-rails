@@ -20,7 +20,7 @@
                   <a href="/projects/<%= proj.id %>" class="btn btn-success btn-lg"><%= proj.title %></a>
                 </div>
                 <div class="panel-body">
-                  <p class="text-muted"><%= proj.description %></p>
+                  <h5 class="text-muted"><%= proj.description %></h5>
                 </div>
               </div>
             </div>
@@ -47,6 +47,15 @@
     </div>
   </div>
   <div class="col-xs-6 col-md-6">
+    <div class="thumbnail">
+      <%= image_tag("splash.png", class: "img-responsive img-rounded") %>
+      <div class="caption">
+        <h3>Welcome!</h3>
+        <p>
+          Adipisicing repudiandae fugit soluta cupiditate beatae blanditiis. Mollitia quibusdam itaque accusantium accusantium veritatis quam magni animi eum libero vel necessitatibus accusantium vitae! Accusamus doloribus qui soluta odio pariatur. Est doloremque.
+        </p>
+      </div>
+    </div>
     <div class="panel panel-info">
       <div class="panel-heading">
         <h2 class="text-muted">Contact Information</h2>

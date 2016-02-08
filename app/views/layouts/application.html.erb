@@ -24,7 +24,7 @@
             <li><a href="/categories">All Categories<span class="badge badge-important pull-right"><%= Project.all.count %></span></a></li>
             <li role="separator" class="divider"></li>
             <% Category.all.each do |cat| %>
-              <li><a href="/categories/<%= cat.id %>"><%= cat.name %><span class="badge badge-important pull-right"><%= Categorization.all.find_all { |x| x.id == cat.id }.count %></span></a></li>
+              <li><a href="/categories/<%= cat.id %>"><%= cat.name %><span class="badge badge-important pull-right"><%= Categorization.all.select { |x| x.category_id == cat.id }.count %></span></a></li>
             <% end %>
           </ul>
         </li>

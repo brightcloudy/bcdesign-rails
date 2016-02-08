@@ -10,7 +10,7 @@
       <tr>
         <td><%= link_to cat.name, "/categories/#{cat.id}" %></td>
         <td><%= cat.description %></td>
-        <td><%= Categorization.all.find_all { |x| x.id == cat.id }.count %></td>
+        <td><%= Categorization.all.select { |x| x.category_id == cat.id }.count %></td>
       </tr>
     <% end %>
   </table>
