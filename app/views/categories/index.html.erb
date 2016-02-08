@@ -1,0 +1,17 @@
+<% provide(:title, "View Users") %>
+<div class="container-fluid">
+  <table class="table table-striped">
+    <tr>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Project Count</td>
+    </tr>
+    <% @categories.each do |cat| %>
+      <tr>
+        <td><%= link_to cat.name, "/categories/#{cat.id}" %></td>
+        <td><%= cat.description %></td>
+        <td><%= Categorization.all.find_all { |x| x.id == cat.id }.count %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   get '/home', to: redirect('/')
   get '/contact' => 'high_voltage/pages#show', id: 'contact'
   
-  resources :projects
   resources :admin do
     member do
       post 'approve'
     end
+  end
+  resources :projects, :categories do 
+    resources :categorizations
   end
   resources :home
 

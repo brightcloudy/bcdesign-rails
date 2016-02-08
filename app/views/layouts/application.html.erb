@@ -18,6 +18,16 @@
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
         <li class="<%= 'active' if current_page?(projects_path) %>"><%= link_to "Projects", projects_path %></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/categories">All Categories<span class="badge badge-important pull-right"><%= Project.all.count %></span></a></li>
+            <li role="separator" class="divider"></li>
+            <% Category.all.each do |cat| %>
+              <li><a href="/categories/<%= cat.id %>"><%= cat.name %><span class="badge badge-important pull-right"><%= Categorization.all.find_all { |x| x.id == cat.id }.count %></span></a></li>
+            <% end %>
+          </ul>
+        </li>
         <li class="<%= 'active' if current_page?(contact_path) %>"> <%= link_to "Contact", contact_path %></li>
         <% if admin_signed_in? %>
           <li class="dropdown">
@@ -25,6 +35,7 @@
             <ul class="dropdown-menu">
               <% if is_superadmin?(current_admin) %>
                 <li><%= link_to "New Project", '/projects/new' %></li>
+                <li><%= link_to "New Category", '/categories/new' %></li>
                 <li><a href="/admin">Users <span class="badge badge-important pull-right"><%= badge_string(unapproved_count)  %></span></a></li>
                 <li role="separator" class="divider"></li>
               <% end %>

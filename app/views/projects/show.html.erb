@@ -19,6 +19,12 @@
   </div>
   <div class="col-md-4">
     <p class="text-muted"><%= @project.description %></p>
+    <ul class="list-inline">
+      <% @project.categorizations.each do |catg| %>
+        <% catgy = Category.find(catg.category_id) %>
+        <li><span class="label label-primary"><%= catgy.name %></span></li>
+      <% end %>
+    </ul><br>
     <% if admin_signed_in? %>
       <% barwidth = @project.featured_status.to_i*10 %>
       <h4 style="text-align: center">Feature Priority</h4>
@@ -27,6 +33,28 @@
           <%= @project.featured_status %>
         </div>
       </div>
+      <% cat_idmap = @project.categorizations.collect { |x| { 'id' => x.id, 'name' => Category.find(x.category_id).name } } %>
+      <% cat_ids = cat_idmap.collect { |x| x['id'] } %>
+      <p class="text-center">
+        <% new_cats = Category.all.reject { |x| cat_ids.include?(x.id) } %>
+        <%= form_for :categorization, url: "/projects/#{@project.id}/categorizations", :method => :post, html: { class: "form-inline" } do |f| %>
+          <div class="form-group">
+            <%= f.select :category_id, options_from_collection_for_select(new_cats, 'id', 'name'), class: "form-control" %>
+          </div>
+          <%= f.hidden_field :project_id, value: @project.id %>
+          <%= f.submit "Add Category", class: "btn btn-success" %>
+        <% end %>
+        </p>
+      <% if @categorization != nil %>
+        <p class="text-center">
+          <%= form_for [@project, @categorization], url: project_categorization_path(@project.id, @categorization.id), :method => :delete, html: { class: "form-inline" } do |f| %>
+            <div class="form-group">
+              <%= f.select :id, options_from_collection_for_select(@project.categorizations, 'id', 'category_name'), class: "form-control" %>
+            </div>
+            <%= f.submit "Delete Category", class: "btn btn-danger" %>
+          <% end %>
+          </p>
+      <% end %>
       <p class="text-center">
         <%= link_to "Edit", "/projects/#{@project.id}/edit", class: "btn btn-primary" %>
         <%= link_to "Delete", "/projects/#{@project.id}", :method => :delete, data: { confirm: "Are you sure you want to delete this project?" }, class: "btn btn-danger" %>

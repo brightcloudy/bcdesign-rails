@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207140146) do
+ActiveRecord::Schema.define(version: 20160207223305) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "username"
@@ -51,6 +51,23 @@ ActiveRecord::Schema.define(version: 20160207140146) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   add_index "admins", ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "categorizations", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "project_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id"
+  add_index "categorizations", ["project_id"], name: "index_categorizations_on_project_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"

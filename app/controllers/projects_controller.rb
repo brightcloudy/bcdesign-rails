@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @categorization = @project.categorizations.first
   end
 
   def index
