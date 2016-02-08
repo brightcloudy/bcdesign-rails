@@ -30,7 +30,6 @@ gem 'autoprefixer-rails'
 
 gem 'high_voltage'
 gem 'paperclip'
-gem 'mail_form'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'rotp'
